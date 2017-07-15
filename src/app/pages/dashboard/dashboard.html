@@ -1,20 +1,30 @@
 <!--en üste kopyalayın-->
-<div class="tabs is-toggle">a
-  <label class="tabs is-toggle is-left he1 header-label" style="color:black">Request's Details</label>
-  <ul style="position: absolute; left:200px;">
-    <li (click)="is-active()"><a class="mesafe-button" style=color:black>1M</a></li>
-    <li><a style=color:black>3M</a></li>
-    <li><a style=color:black>6M</a></li>
-    <li><a style=color:black>YTD</a></li>
-    <li><a style=color:black>1Y</a></li>
-    <li><a style=color:black>ALL</a></li>
-  </ul>
-  <label style="position: absolute; right: 590px; color:black; " title="Select Start Date">From:</label>
-  <ng2-datepicker [(ngModel)]="datestart" style="position: absolute; right: 400px;" placeholder="YYYY-MM-DD" title="Select Start Date"></ng2-datepicker>
-  <label style="position: absolute; right: 330px; color:black;" title="Select End Date">To:</label>
-  <ng2-datepicker [(ngModel)]="dateend" style="position: absolute; right:140px;" placeholder="YYYY-MM-DD" title="Select End Date"></ng2-datepicker>
-  <span style="margin-right:1cm" (click)="refreshData()" title="Refresh" class="style_prevu_kit glyphicon glyphicon-refresh"></span>
-</div>
+<table>
+  <td style="width:50%">
+    <div style="margin-bottom:0.2cm" class="col-12 tabs is-toggle">
+      <label class="tabs is-toggle is-left he1 header-label" style="color:black">Request's Details</label>
+      <ul style="position: absolute; left:200px;">
+        <li><a (click)="big1=!big1" class="mesafe-button" style=color:black>1M {{big1 && !big2 && !big3 && !big4 && !big5 && !big6 ? '✔' : ''}}</a></li>
+        <li><a (click)="big2=!big2" style=color:black>3M {{big2 && !big1 && !big3 && !big4 && !big5 && !big6 ?  '✔' : '' }}</a></li>
+        <li><a (click)="big3=!big3" style=color:black>6M {{big3 && !big1 && !big2 && !big4 && !big5 && !big6 ? '✔' : ''}}</a></li>
+        <li><a (click)="big4=!big4" style=color:black>YTD {{big4 && !big1 && !big2 && !big3 && !big5 && !big6 ? '✔' : ''}}</a></li>
+        <li><a (click)="big5=!big5" style=color:black>1Y {{big5 && !big1 && !big2 && !big3 && !big4 && !big6 ? '✔' : ''}}</a></li>
+        <li><a (click)="big6=!big6" style=color:black>ALL {{big6 && !big1 && !big2 && !big3 && !big4 && !big5 ? '✔' : ''}}</a></li>
+      </ul>
+    </div>
+  </td>
+  <td class="col-12" style="width:40%">
+    <label  title="Select Start Date">From:</label>
+    <ng2-datepicker [(ngModel)]="datestart" style="margin-right:10px" placeholder="YYYY-MM-DD" title="Select Start Date"></ng2-datepicker>
+    <label  style="margin-left:10px" title="Select End Date">To:</label>
+    <ng2-datepicker [(ngModel)]="dateend"   placeholder="YYYY-MM-DD" title="Select End Date"></ng2-datepicker>
+  </td>
+  <td style="position: absolute; right: 20px">
+    <span (click)="big=!big">
+    <span style="margin-right:1cm"  (click)="refreshData()" title="Refresh" class="style_prevu_kit glyphicon glyphicon-refresh"><div >{{big ? 'Loading...' : ''}}</div></span>
+    </span>
+  </td>
+</table>
 <!--1-->
 <div class="row">
   <div class="col-xlg-9 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">

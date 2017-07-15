@@ -34,28 +34,26 @@ export class Dashboard {
   optionForChart: any = {};
   constructor(private requestDetailService: RequestDetailService) {
     this.Math = Math;
-    let dateEndTemp = moment();
-    let dateBeginTemp = moment().add('d', -1);
+    const dateEndTemp = moment();
+    const dateBeginTemp = moment().add('d', -1);
 
     this.dateend = new DateModel({
       day: '13',
       formatted: dateEndTemp.format('YYYY-MM-DD'),
       month: '07',
       year: dateEndTemp.year().toString(),
-      momentObj: dateEndTemp
+      momentObj: dateEndTemp,
     });
     this.datestart = new DateModel({
       day: dateBeginTemp.day().toString(),
       formatted: dateBeginTemp.format('YYYY-MM-DD'),
       month: '07',
       year: dateBeginTemp.year().toString(),
-      momentObj: dateBeginTemp
-    })
-
+      momentObj: dateBeginTemp,
+    });
 
 
   }
-
 
 
   // FOR LINECHART 
@@ -147,7 +145,6 @@ export class Dashboard {
       this.dataForAvgRequestTime.splice(0, 1);
 
 
-
     } else {
       this.dataForAvgRequestTime = this.datas1
         .sort((a, b) => {
@@ -225,16 +222,19 @@ export class Dashboard {
   calculatePercentage(portion: number, denominator: number): Number {
     return portion * 100 / denominator;
   }
+
   refreshData() {
+    
 
-
+  ////loading true
+  console.log('loading true');
 
     this.requestDetailService.getFeatureWithPromise(this.datestart.momentObj, this.dateend.momentObj)
       .then(res => {
         this.datas1 = res;
-
-
-
+        
+  ////loading false
+  console.log('loading false');
 
         this.calculateMostResponseTime(null); // for most req time
         this.calculateAvgResponseTime(null); // for avg req time
@@ -242,7 +242,7 @@ export class Dashboard {
         this.sortFeatureDate();
 
         this.dataForChart = {
-          values: ['1000', 2000, 3000, 5000, 7000],//
+          values: ['1000', 2000, 3000, 5000, 7000], //
           labels: ['01/07', '02/07', '03/07', '04/07'],
           series: [
             [6, 10, 0, 12, 14], // comment
@@ -258,7 +258,7 @@ export class Dashboard {
             right: 40,
           },
         };
-      })
+      });
 
 
     console.log('Secilen başlangıç Tarihi' + this.datestart.formatted);

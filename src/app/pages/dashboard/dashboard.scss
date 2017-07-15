@@ -169,8 +169,10 @@ html, body {
     transition: all 200ms ease-in;
     transform: scale(1.5);
 }
-.navbutton:active { background-color: red;
-}
-a:active { 
-    background-color: red;
-}
+        .big1{ max-width: 400px; padding: 5px; }
+        .big2{ max-width: 400px; padding: 5px; }
+        .big3{ max-width: 400px; padding: 5px; }
+        .big4{ max-width: 400px; padding: 5px; }
+        .big5{ max-width: 400px; padding: 5px; }
+        .big6{ max-width: 400px; padding: 5px; }
+        .big { max-width: 400px; padding: 5px; }
