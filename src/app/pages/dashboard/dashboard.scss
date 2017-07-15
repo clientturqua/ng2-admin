@@ -1,3 +1,5 @@
+@import "../../theme/sass/conf/conf";/*eklenti*/
+@import "../charts/components/chartistJs/chartistJs.scss";/*eklenti*/
 @media screen and (min-width: 1620px) {
   .row.shift-up {
     > * {
@@ -18,6 +20,157 @@
   }
 }
 
+/*başlıklar*/
+.mesafe-button{
+  margin-left:10px;
+  
+}
+.header-label{
+  margin-bottom:0px;
+  padding:9px 6px;
+}
+.he1{
+  font-family: "Times New Roman", Times, serif;
+  font-size: 120%;
+  color: rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+}
+/*left-to-right bar chart*/
 .blurCalendar {
   height: 475px;
+}
+dl {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  padding: 20px;
+}
+
+/*
+.he4 {
+    position: relative;
+}
+
+.he4:before {
+    content: "API: ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    color: white;
+}*/
+dt {
+  align-self: flex-start;
+  width: 100%;
+  font-weight: 700;
+  display: block;
+  text-align: left;
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-left: 130px;
+}
+
+.text {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 130px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  justify-content: flex-end;
+}
+
+.percentage {
+  font-size: .8em;
+  line-height: 1;
+  text-transform: uppercase;
+  width: 80%;
+  height: 20px;
+  margin-left: 130px;
+  background: repeating-linear-gradient(
+  to right,
+  #ddd,
+  #ddd 2px,
+  #fff 2px,
+  #fff 5%
+);
+  
+  &:after {
+    content: "";
+    display: block;
+    background-color: #3d9970;
+    width: 50px;
+    margin-bottom: 10px;
+    height: 90%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-0%);
+    transition: background-color .3s ease;
+    cursor: pointer;
+  }
+  &:hover,
+  &:focus {
+    &:after {
+       background-color: #aaa; 
+    }
+  }
+}
+
+@for $i from 1 through 100 {
+  .percentage-#{$i} {
+    &:after {
+      $value: ($i * 1%);
+      width: $value;
+    }
+  }
+}
+
+html, body {
+  height: 500px;
+  font-family: "fira-sans-2",sans-serif;
+  color: #333;
+}
+/*zoom refresh buttonu için*/
+.style_prevu_kit
+{
+    display:inline-block;
+    border:0;
+    width:10px;
+    height:10px;
+    position: relative;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1); 
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1); 
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 200ms ease-in;
+    transform: scale(1);   
+
+}
+.style_prevu_kit:hover
+{
+    cursor: pointer; 
+    cursor: hand;
+    box-shadow: 0px 0px 0px #000000;
+    z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.5);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.5);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.5);
+    transition: all 200ms ease-in;
+    transform: scale(1.5);
+}
+.navbutton:active { background-color: red;
+}
+a:active { 
+    background-color: red;
 }

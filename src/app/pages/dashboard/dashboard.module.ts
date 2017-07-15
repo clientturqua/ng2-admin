@@ -1,12 +1,12 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
 
 import { Dashboard } from './dashboard.component';
-import { routing }       from './dashboard.routing';
-
+import { routing } from './dashboard.routing';
+import { DatePickerModule } from 'ng2-datepicker'; //
 import { PopularApp } from './popularApp';
 import { PieChart } from './pieChart';
 import { TrafficChart } from './trafficChart';
@@ -22,6 +22,8 @@ import { PieChartService } from './pieChart/pieChart.service';
 import { TodoService } from './todo/todo.service';
 import { TrafficChartService } from './trafficChart/trafficChart.service';
 import { UsersMapService } from './usersMap/usersMap.service';
+import { ToReadableTime } from './model2-pipes';
+
 
 @NgModule({
   imports: [
@@ -29,7 +31,8 @@ import { UsersMapService } from './usersMap/usersMap.service';
     FormsModule,
     AppTranslationModule,
     NgaModule,
-    routing
+    routing,
+    DatePickerModule,
   ],
   declarations: [
     PopularApp,
@@ -40,7 +43,10 @@ import { UsersMapService } from './usersMap/usersMap.service';
     Feed,
     Todo,
     Calendar,
-    Dashboard
+    Dashboard,
+    ToReadableTime,
+  
+
   ],
   providers: [
     CalendarService,
@@ -49,7 +55,7 @@ import { UsersMapService } from './usersMap/usersMap.service';
     PieChartService,
     TodoService,
     TrafficChartService,
-    UsersMapService
-  ]
+    UsersMapService,
+  ],
 })
-export class DashboardModule {}
+export class DashboardModule { }

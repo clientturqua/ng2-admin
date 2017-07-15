@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
                <div class="widgets">
                   <div class="row">
                     <div class="col-md-12">
-                      <ba-card cardTitle="Examples">
+                      <ba-card title="Examples">
                          <section id="handsontable">
                            <div class="row">
                                 <div class="col-md-12">
