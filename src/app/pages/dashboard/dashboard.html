@@ -4,12 +4,12 @@
     <div style="margin-bottom:0.2cm" class="col-12 tabs is-toggle">
       <label class="tabs is-toggle is-left he1 header-label" style="color:black">Request's Details</label>
       <ul style="position: absolute; left:200px;">
-        <li><a (click)="big1=!big1" class="mesafe-button" style=color:black>1M {{big1 && !big2 && !big3 && !big4 && !big5 && !big6 ? '✔' : ''}}</a></li>
-        <li><a (click)="big2=!big2" style=color:black>3M {{big2 && !big1 && !big3 && !big4 && !big5 && !big6 ?  '✔' : '' }}</a></li>
-        <li><a (click)="big3=!big3" style=color:black>6M {{big3 && !big1 && !big2 && !big4 && !big5 && !big6 ? '✔' : ''}}</a></li>
-        <li><a (click)="big4=!big4" style=color:black>YTD {{big4 && !big1 && !big2 && !big3 && !big5 && !big6 ? '✔' : ''}}</a></li>
-        <li><a (click)="big5=!big5" style=color:black>1Y {{big5 && !big1 && !big2 && !big3 && !big4 && !big6 ? '✔' : ''}}</a></li>
-        <li><a (click)="big6=!big6" style=color:black>ALL {{big6 && !big1 && !big2 && !big3 && !big4 && !big5 ? '✔' : ''}}</a></li>
+        <li><a (click)="filterfor1month()" class="mesafe-button" style=color:black>1M</a></li>
+        <li><a (click)="filterfor3month()" style=color:black>3M</a></li>
+        <li><a (click)="filterfor6month()" style=color:black>6M</a></li>
+        <li><a  style=color:black>YTD</a></li>
+        <li><a (click)="filterfor1year()" style=color:black>1Y</a></li>
+        <li><a  style=color:black>ALL</a></li>
       </ul>
     </div>
   </td>
@@ -56,22 +56,16 @@
     <div class="row">
       <ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12" title="Request Count" baCardClass="medium-card">
         <div style="position: absolute; top:0px; right: 30px;">
-          <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
-            <a class="navbar-link  is-active" (click)="calculateRequestCount('ALL')">
+          <select ng-model="selection" title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
+          <option value="1" onselect="calculateRequestCount('ALL')">
           ALL
-        </a>
-            <div class="navbar-dropdown ">
-              <a class="navbar-item " (click)="calculateRequestCount('PUT')">
+        <option value="2" onselect="calculateRequestCount('PUT')">
             PUT
-          </a>
-              <a class="navbar-item " (click)="calculateRequestCount('GET')">
+            <option value="3" onselect="calculateRequestCount('GET')">
             GET
-          </a>
-              <a class="navbar-item " (click)="calculateRequestCount('POST')">
+            <option value="4" onselect="calculateRequestCount('POST')">
             POST
-          </a>
-            </div>
-          </div>
+        </select>
         </div>
         <div class="charts">
           <div *ngFor="let data of dataForCount; let i = index;">
@@ -96,7 +90,7 @@
           <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
             <a class="navbar-link  is-active" (click)="calculateMostResponseTime('ALL')">
           ALL
-        </a>
+          </a>
             <div class="navbar-dropdown ">
               <a class="navbar-item " (click)="calculateMostResponseTime('PUT')">
             PUT
@@ -132,14 +126,26 @@
     <div class="row">
       <ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12" title="Avg. Response Time" baCardClass="medium-card">
         <div style="position: absolute; top:0px; right: 30px;">
-          <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
+           <!-- <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
+             <a class="navbar-link  is-active" (click)="calculateMostResponseTime('ALL')">
+          ALL
+          </a>
+         <div class="navbar-dropdown ">
+          <div *ngFor="let data of requestName; let i = index;">
+            <a class="navbar-link" (click)="calculateAvgResponseTime('data')"> {{data}}</a>
+          </div>   
+         </div>
+
+            
+          </div>  -->
+         <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
             <a class="navbar-link  is-active" (click)="calculateAvgResponseTime('ALL')">
           ALL
-        </a>
+          </a>
             <div class="navbar-dropdown ">
               <a class="navbar-item " (click)="calculateAvgResponseTime('PUT')">
-                PUT
-                </a>
+            PUT
+          </a>
               <a class="navbar-item " (click)="calculateAvgResponseTime('GET')">
             GET
           </a>
@@ -147,7 +153,7 @@
             POST
           </a>
             </div>
-          </div>
+          </div> 
         </div>
         <div class="charts">
           <div *ngFor="let data of dataForAvgRequestTime; let i = index;">
@@ -167,26 +173,3 @@
     </div>
   </div>
 </div>
-
-<!--<div>
-            <label>{{dataForAvgRequestTime[1].requestRouteTemplate}}</label><label style="position: absolute; right: 300px;">{{this.Math.floor(dataForAvgRequestTime[1].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</label>
-            <label
-              style="position: absolute; right: 30px;">{{dataForAvgRequestTime[1].avgTime|toReadableTime}} sec</label>
-              <progress style="color:purple" class="progress is-success is-small" max="100" [value]="this.Math.round(dataForAvgRequestTime[1].avgTime * 100 / dataForAvgRequestTime[0].avgTime)">{{this.Math.floor(dataForAvgRequestTime[1].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</progress>
-              <label>{{dataForAvgRequestTime[2].requestRouteTemplate}}</label><label style="position: absolute; right: 300px;">{{this.Math.floor(dataForAvgRequestTime[2].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</label>
-              <label
-                style="position: absolute; right: 30px;">{{dataForAvgRequestTime[2].avgTime|toReadableTime}} sec</label>
-                <progress style="background-color:chartreuse" class="progress is-info is-small" max="100" [value]="this.Math.round(dataForAvgRequestTime[2].avgTime * 100 / dataForAvgRequestTime[0].avgTime)">{{this.Math.floor(dataForAvgRequestTime[2].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</progress>
-                <label>{{dataForAvgRequestTime[3].requestRouteTemplate}}</label><label style="position: absolute; right: 300px;">{{this.Math.floor(dataForAvgRequestTime[3].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</label>
-                <label
-                  style="position: absolute; right: 30px;">{{dataForAvgRequestTime[3].avgTime|toReadableTime}} sec</label>
-                  <progress style="background-color:orange" class="progress is-primary is-small" max="100" [value]="this.Math.round(dataForAvgRequestTime[3].avgTime * 100 / dataForAvgRequestTime[0].avgTime)">{{this.Math.floor(dataForAvgRequestTime[3].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</progress>
-                  <label>{{dataForAvgRequestTime[4].requestRouteTemplate}}</label><label style="position: absolute; right: 300px;">{{this.Math.floor(dataForAvgRequestTime[4].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</label>
-                  <label
-                    style="position: absolute; right: 30px;">{{dataForAvgRequestTime[4].avgTime|toReadableTime}} sec</label>
-                    <progress style="background-color:aqua" class="progress is-warning is-small" max="100" [value]="this.Math.round(dataForAvgRequestTime[4].avgTime * 100 / dataForAvgRequestTime[0].avgTime)">{{this.Math.floor(dataForAvgRequestTime[4].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</progress>
-                    <label>{{dataForAvgRequestTime[5].requestRouteTemplate}}</label><label style="position: absolute; right: 300px;">{{this.Math.floor(dataForAvgRequestTime[5].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</label>
-                    <label
-                      style="position: absolute; right: 30px;">{{dataForAvgRequestTime[5].avgTime|toReadableTime}} sec</label>
-                      <progress style="background-color:brown" class="progress is-danger is-small" max="100" [value]="this.Math.round(dataForAvgRequestTime[5].avgTime * 100 / dataForAvgRequestTime[0].avgTime)">{{this.Math.floor(dataForAvgRequestTime[5].avgTime * 100 / dataForAvgRequestTime[0].avgTime)}}%</progress>
-          </div>-->

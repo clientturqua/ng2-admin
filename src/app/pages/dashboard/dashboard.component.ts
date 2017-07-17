@@ -22,13 +22,14 @@ export class Dashboard {
   // orijinal data
   datas1: Feature[] = [];
   datas2: Feature2[] = [];
+  requestName: string[] = [];
   // en yüksek reqeust data
 
   max: number;
 
-  dataForMostResponseTime: Feature[] = []; //for most resp time
-  dataForAvgRequestTime: Feature[] = []; //for avg req time
-  dataForCount: Feature[] = [];            // for req count
+  dataForMostResponseTime: Feature[] = [];  //for most resp time
+  dataForAvgRequestTime: Feature[] = [];    //for avg req time
+  dataForCount: Feature[] = [];             // for req count
   dataForMostDate: Feature2[] = [];
   dataForChart: any = {};
   optionForChart: any = {};
@@ -222,24 +223,328 @@ export class Dashboard {
   calculatePercentage(portion: number, denominator: number): Number {
     return portion * 100 / denominator;
   }
-
-  refreshData() {
-    
-
-  ////loading true
-  console.log('loading true');
+  // FOR 1 MONTH
+  filterfor1month() {
+    const dateEndTemp = moment();
+    const dateBeginTemp = moment().add('month', -1);
+    this.dateend = new DateModel({
+      day: dateEndTemp.day().toString(),
+      formatted: dateEndTemp.format('YYYY-MM-DD'),
+      month: dateEndTemp.month().toString(),
+      year: dateEndTemp.year().toString(),
+      momentObj: dateEndTemp,
+    });
+    this.datestart = new DateModel({
+      day: dateBeginTemp.day().toString(),
+      formatted: dateBeginTemp.format('YYYY-MM-DD'),
+      month: dateBeginTemp.month().toString(),
+      year: dateBeginTemp.year().toString(),
+      momentObj: dateBeginTemp,
+    });
 
     this.requestDetailService.getFeatureWithPromise(this.datestart.momentObj, this.dateend.momentObj)
       .then(res => {
         this.datas1 = res;
-        
-  ////loading false
-  console.log('loading false');
+        //
+        const temp: string[] = [];
+        for (let index = 0; index < res.length; index++) {
+          for (let index2 = 0; index2 < temp.length; index2++) {
+            if (temp[index2] !== res[index].requestRouteTemplate) {
+              const element = (res[index].requestRouteTemplate);
+              temp.push(element);
+            }
+
+          }
+
+        }
+        this.requestName = temp;
+        //
+
+
+        //true false refresh
 
         this.calculateMostResponseTime(null); // for most req time
         this.calculateAvgResponseTime(null); // for avg req time
         this.calculateRequestCount(null); // for req count
         this.sortFeatureDate();
+
+        //false
+
+        this.dataForChart = {
+          values: ['1000', 2000, 3000, 5000, 7000], //
+          labels: ['01/07', '02/07', '03/07', '04/07'],
+          series: [
+            [6, 10, 0, 12, 14], // comment
+            [10, 45, 30, 14, 12],
+            [34, 12, 12, 40, 50],
+            [10, 43, 25, 22, 16],
+          ],
+        };
+        this.optionForChart = {
+          fullWidth: true,
+          height: '300px',
+          chartPadding: {
+            right: 40,
+          },
+        };
+      });
+
+
+    console.log('Secilen başlangıç Tarihi' + this.datestart.formatted);
+    console.log('Seçilen bitiş Tarihi' + this.dateend.formatted);
+
+
+  }
+
+
+  // FOR 3 MONTH
+  filterfor3month() {
+    const dateEndTemp = moment();
+    const dateBeginTemp = moment().add('month', -3);
+    this.dateend = new DateModel({
+      day: dateEndTemp.day().toString(),
+      formatted: dateEndTemp.format('YYYY-MM-DD'),
+      month: dateEndTemp.month().toString(),
+      year: dateEndTemp.year().toString(),
+      momentObj: dateEndTemp,
+    });
+    this.datestart = new DateModel({
+      day: dateBeginTemp.day().toString(),
+      formatted: dateBeginTemp.format('YYYY-MM-DD'),
+      month: dateBeginTemp.month().toString(),
+      year: dateBeginTemp.year().toString(),
+      momentObj: dateBeginTemp,
+    });
+
+    this.requestDetailService.getFeatureWithPromise(this.datestart.momentObj, this.dateend.momentObj)
+      .then(res => {
+        this.datas1 = res;
+        const temp: string[] = [];
+        for (let index = 0; index < res.length; index++) {
+          for (let index2 = 0; index2 < temp.length; index2++) {
+            if (temp[index2] !== res[index].requestRouteTemplate) {
+              const element = (res[index].requestRouteTemplate);
+              temp.push(element);
+            }
+
+          }
+
+        }
+        this.requestName = temp;
+        //
+
+        //true false refresh
+
+        this.calculateMostResponseTime(null); // for most req time
+        this.calculateAvgResponseTime(null); // for avg req time
+        this.calculateRequestCount(null); // for req count
+        this.sortFeatureDate();
+
+        //false
+
+        this.dataForChart = {
+          values: ['1000', 2000, 3000, 5000, 7000], //
+          labels: ['01/07', '02/07', '03/07', '04/07'],
+          series: [
+            [6, 10, 0, 12, 14], // comment
+            [10, 45, 30, 14, 12],
+            [34, 12, 12, 40, 50],
+            [10, 43, 25, 22, 16],
+          ],
+        };
+        this.optionForChart = {
+          fullWidth: true,
+          height: '300px',
+          chartPadding: {
+            right: 40,
+          },
+        };
+      });
+
+
+    console.log('Secilen başlangıç Tarihi' + this.datestart.formatted);
+    console.log('Seçilen bitiş Tarihi' + this.dateend.formatted);
+
+
+  }
+
+  // FOR 6 MONTH
+  filterfor6month() {
+    const dateEndTemp = moment();
+    const dateBeginTemp = moment().add('month', -6);
+    this.dateend = new DateModel({
+      day: dateEndTemp.day().toString(),
+      formatted: dateEndTemp.format('YYYY-MM-DD'),
+      month: dateEndTemp.month().toString(),
+      year: dateEndTemp.year().toString(),
+      momentObj: dateEndTemp,
+    });
+    this.datestart = new DateModel({
+      day: dateBeginTemp.day().toString(),
+      formatted: dateBeginTemp.format('YYYY-MM-DD'),
+      month: dateBeginTemp.month().toString(),
+      year: dateBeginTemp.year().toString(),
+      momentObj: dateBeginTemp,
+    });
+
+    this.requestDetailService.getFeatureWithPromise(this.datestart.momentObj, this.dateend.momentObj)
+      .then(res => {
+        this.datas1 = res;
+        const temp: string[] = [];
+        for (let index = 0; index < res.length; index++) {
+          for (let index2 = 0; index2 < temp.length; index2++) {
+            if (temp[index2] !== res[index].requestRouteTemplate) {
+              const element = (res[index].requestRouteTemplate);
+              temp.push(element);
+            }
+
+          }
+
+        }
+        this.requestName = temp;
+        //
+
+
+        //true false refresh
+
+        this.calculateMostResponseTime(null); // for most req time
+        this.calculateAvgResponseTime(null); // for avg req time
+        this.calculateRequestCount(null); // for req count
+        this.sortFeatureDate();
+
+        //false
+
+        this.dataForChart = {
+          values: ['1000', 2000, 3000, 5000, 7000], //
+          labels: ['01/07', '02/07', '03/07', '04/07'],
+          series: [
+            [6, 10, 0, 12, 14], // comment
+            [10, 45, 30, 14, 12],
+            [34, 12, 12, 40, 50],
+            [10, 43, 25, 22, 16],
+          ],
+        };
+        this.optionForChart = {
+          fullWidth: true,
+          height: '300px',
+          chartPadding: {
+            right: 40,
+          },
+        };
+      });
+
+
+    console.log('Secilen başlangıç Tarihi' + this.datestart.formatted);
+    console.log('Seçilen bitiş Tarihi' + this.dateend.formatted);
+
+
+  }
+
+  // FOR 1 YEAR
+  filterfor1year() {
+    const dateEndTemp = moment();
+    const dateBeginTemp = moment().add('year', -1);
+    this.dateend = new DateModel({
+      day: dateEndTemp.day().toString(),
+      formatted: dateEndTemp.format('YYYY-MM-DD'),
+      month: dateEndTemp.month().toString(),
+      year: dateEndTemp.year().toString(),
+      momentObj: dateEndTemp,
+    });
+    this.datestart = new DateModel({
+      day: dateBeginTemp.day().toString(),
+      formatted: dateBeginTemp.format('YYYY-MM-DD'),
+      month: dateBeginTemp.month().toString(),
+      year: dateBeginTemp.year().toString(),
+      momentObj: dateBeginTemp,
+    });
+
+    this.requestDetailService.getFeatureWithPromise(this.datestart.momentObj, this.dateend.momentObj)
+      .then(res => {
+        this.datas1 = res;
+        const temp: string[] = [];
+        for (let index = 0; index < res.length; index++) {
+          for (let index2 = 0; index2 < temp.length; index2++) {
+            if (temp[index2] !== res[index].requestRouteTemplate) {
+              const element = (res[index].requestRouteTemplate);
+              temp.push(element);
+            }
+
+          }
+
+        }
+        this.requestName = temp;
+        //
+
+        //true false refresh
+
+        this.calculateMostResponseTime(null); // for most req time
+        this.calculateAvgResponseTime(null); // for avg req time
+        this.calculateRequestCount(null); // for req count
+        this.sortFeatureDate();
+
+        //false
+
+        this.dataForChart = {
+          values: ['1000', 2000, 3000, 5000, 7000], //
+          labels: ['01/07', '02/07', '03/07', '04/07'],
+          series: [
+            [6, 10, 0, 12, 14], // comment
+            [10, 45, 30, 14, 12],
+            [34, 12, 12, 40, 50],
+            [10, 43, 25, 22, 16],
+          ],
+        };
+        this.optionForChart = {
+          fullWidth: true,
+          height: '300px',
+          chartPadding: {
+            right: 40,
+          },
+        };
+      });
+
+
+    console.log('Secilen başlangıç Tarihi' + this.datestart.formatted);
+    console.log('Seçilen bitiş Tarihi' + this.dateend.formatted);
+
+
+  }
+
+
+  refreshData() {
+
+    console.log('loading true');
+
+    this.requestDetailService.getFeatureWithPromise(this.datestart.momentObj, this.dateend.momentObj)
+      .then(res => {
+        this.datas1 = res;
+        // const temp: string[] = [];
+        // for (let index = 0; index < res.length; index++) {
+        //   const element1 = (res[index].requestRouteTemplate);
+        //   temp.push(element1);
+        //   for (let index2 = 0; index2 < temp.length; index2++) {
+        //     if (temp[index2] !== res[index].requestRouteTemplate) {
+        //       console.log('Temp Name' + temp);
+        //       const element = (res[index].requestRouteTemplate);
+        //       temp.push(element);
+        //     }
+
+        //   }
+
+        // }
+        // this.requestName = temp;
+        //
+
+        console.log('loading false');
+        //true false refresh
+
+        this.calculateMostResponseTime(null); // for most req time
+        this.calculateAvgResponseTime(null); // for avg req time
+        this.calculateRequestCount(null); // for req count
+        this.sortFeatureDate();
+
+        //false
 
         this.dataForChart = {
           values: ['1000', 2000, 3000, 5000, 7000], //
