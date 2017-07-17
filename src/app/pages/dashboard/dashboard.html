@@ -3,12 +3,12 @@
     <div style="margin-bottom:0.2cm" class="col-12 tabs is-toggle">
       <label class="tabs is-toggle is-left he1 header-label" style="color:black">Request's Details</label>
       <ul style="position: absolute; left:200px;">
-        <li><a (click)="filterfor1month()" class="mesafe-button" style=color:black>1M</a></li>
-        <li><a (click)="filterfor3month()" style=color:black>3M</a></li>
-        <li><a (click)="filterfor6month()" style=color:black>6M</a></li>
-        <li><a style=color:black>YTD</a></li>
-        <li><a (click)="filterfor1year()" style=color:black>1Y</a></li>
-        <li><a style=color:black>ALL</a></li>
+        <li (click)="click1=!click1"><a (click)="filterfor1month()" class="mesafe-button" style=color:black>1M {{click1  ?  '✔' : '' }}</a></li>
+        <li (click)="click2=!click2"><a (click)="filterfor3month()" style=color:black>3M {{click2  ?  '✔' : '' }}</a></li>
+        <li (click)="click3=!click3"><a (click)="filterfor6month()" style=color:black>6M {{click3  ?  '✔' : '' }}</a></li>
+        <li (click)="click4=!click4"><a style=color:black>YTD {{click4  ?  '✔' : '' }}</a></li>
+        <li (click)="click5=!click5"><a (click)="filterfor1year()" style=color:black>1Y {{click5  ?  '✔' : '' }}</a></li>
+        <li (click)="click6=!click6"><a style=color:black>ALL {{click6  ?  '✔' : '' }}</a></li>
       </ul>
     </div>
   </td>
