@@ -7,22 +7,20 @@
         <li><a (click)="filterfor1month()" class="mesafe-button" style=color:black>1M</a></li>
         <li><a (click)="filterfor3month()" style=color:black>3M</a></li>
         <li><a (click)="filterfor6month()" style=color:black>6M</a></li>
-        <li><a  style=color:black>YTD</a></li>
+        <li><a style=color:black>YTD</a></li>
         <li><a (click)="filterfor1year()" style=color:black>1Y</a></li>
-        <li><a  style=color:black>ALL</a></li>
+        <li><a style=color:black>ALL</a></li>
       </ul>
     </div>
   </td>
   <td class="col-12" style="width:40%">
-    <label  title="Select Start Date">From:</label>
+    <label title="Select Start Date">From:</label>
     <ng2-datepicker [(ngModel)]="datestart" style="margin-right:10px" placeholder="YYYY-MM-DD" title="Select Start Date"></ng2-datepicker>
-    <label  style="margin-left:10px" title="Select End Date">To:</label>
-    <ng2-datepicker [(ngModel)]="dateend"   placeholder="YYYY-MM-DD" title="Select End Date"></ng2-datepicker>
+    <label style="margin-left:10px" title="Select End Date">To:</label>
+    <ng2-datepicker [(ngModel)]="dateend" placeholder="YYYY-MM-DD" title="Select End Date"></ng2-datepicker>
   </td>
   <td style="position: absolute; right: 20px">
-    <span (click)="big=!big">
-    <span style="margin-right:1cm"  (click)="refreshData()" title="Refresh" class="style_prevu_kit glyphicon glyphicon-refresh"><div >{{big ? 'Loading...' : ''}}</div></span>
-    </span>
+    <span style="margin-right:1cm" (click)="refreshData()" title="Refresh" class="style_prevu_kit glyphicon glyphicon-refresh"></span>
   </td>
 </table>
 <!--1-->
@@ -56,16 +54,22 @@
     <div class="row">
       <ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12" title="Request Count" baCardClass="medium-card">
         <div style="position: absolute; top:0px; right: 30px;">
-          <select ng-model="selection" title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
-          <option value="1" onselect="calculateRequestCount('ALL')">
+          <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
+            <a class="navbar-link  is-active" (click)="calculateRequestCount('ALL')">
           ALL
-        <option value="2" onselect="calculateRequestCount('PUT')">
+          </a>
+            <div class="navbar-dropdown ">
+              <a class="navbar-item " (click)="calculateRequestCount('PUT')">
             PUT
-            <option value="3" onselect="calculateRequestCount('GET')">
+          </a>
+              <a class="navbar-item " (click)="calculateRequestCount('GET')">
             GET
-            <option value="4" onselect="calculateRequestCount('POST')">
+          </a>
+              <a class="navbar-item " (click)="calculateRequestCount('POST')">
             POST
-        </select>
+          </a>
+            </div>
+          </div>
         </div>
         <div class="charts">
           <div *ngFor="let data of dataForCount; let i = index;">
@@ -126,7 +130,7 @@
     <div class="row">
       <ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12" title="Avg. Response Time" baCardClass="medium-card">
         <div style="position: absolute; top:0px; right: 30px;">
-           <!-- <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
+          <!-- <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
              <a class="navbar-link  is-active" (click)="calculateMostResponseTime('ALL')">
           ALL
           </a>
@@ -138,7 +142,7 @@
 
             
           </div>  -->
-         <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
+          <div title="Filter" class="navbar-item has-dropdown is-hoverable is-boxed">
             <a class="navbar-link  is-active" (click)="calculateAvgResponseTime('ALL')">
           ALL
           </a>
@@ -153,7 +157,7 @@
             POST
           </a>
             </div>
-          </div> 
+          </div>
         </div>
         <div class="charts">
           <div *ngFor="let data of dataForAvgRequestTime; let i = index;">
